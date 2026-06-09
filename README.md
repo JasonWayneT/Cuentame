@@ -23,8 +23,20 @@ The core thesis: vocabulary that's tied to your actual experiences retrieves fas
 | Field | Value |
 |---|---|
 | **Phase** | Pre-development |
-| **Stability** | Research complete — product brief in progress |
+| **Stability** | Research and product brief complete — development not started |
 | **Last updated** | April 2026 |
+
+---
+
+## How Lessons Work
+
+Each lesson is a 3-phase daily micro-lesson (10–20 minutes), fully specified in `context_driven_lesson_template_guide.md`:
+
+1. **Recall Warm-up** — cloze deletion, translation recall, and sentence reconstruction from the user's own prior diary content. Active retrieval only — no multiple choice.
+2. **Contextual Expansion** — takes the user's own sentences and requires recombination: transform an event into a habit, swap connectors, reuse vocabulary chunks in a new real-life context.
+3. **Production Challenge** — write or speak 6–8 sentences about a real event using target grammar and connectors. Self-correction against the AI model answer.
+
+Spaced repetition runs underneath: vocabulary resurfaces on expanding intervals as recall weakens. The lesson content structure is fully defined. UI design is an open question.
 
 ---
 
@@ -34,7 +46,8 @@ The core thesis: vocabulary that's tied to your actual experiences retrieves fas
 |---|---|
 | `Context-Driven Lesson Template Guide for Personalized Spanish Learning (A2→B1).md` | Domain and market research session — user segments, competitive landscape, key product decisions |
 | `context_driven_lesson_template_guide.md` | Lesson format specification and CEFR mapping approach |
-| `planning_artifacts/` | BMAD planning outputs — product brief in progress |
+| `planning_artifacts/` | BMAD planning outputs — PRD and prior brief drafts |
+| `docs/product-brief.md` | Final product brief — source of truth for scope, user, and success criteria |
 
 ---
 
