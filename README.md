@@ -1,16 +1,32 @@
+---
+title: "Cuentame"
+description: "A Spanish learning app for heritage speakers and stalled intermediates — lessons built from the user's own diary vocabulary, not a generic word list."
+author: "Jason Taylor"
+role: "Product Manager"
+status: "in-progress"
+ai_role: "research synthesis, product brief drafting under Jason's direction; no code written yet — pre-development phase"
+tech_stack: []
+pm_skills: ["market research", "competitive analysis", "user segmentation", "product brief", "AI cost architecture design", "privacy-first design"]
+keywords: ["Spanish learning", "heritage speakers", "language learning", "CEFR", "vocabulary", "personalized learning", "diary"]
+date_completed: ""
+---
+
 # Cuentame
 
-> A Spanish learning app that generates personalized vocabulary lessons and flashcards from the learner's own diary entries — so you practice the words you actually need to speak your life, not a generic word list.
+> A Spanish learning app for people who already understand Spanish but can't produce it. You log what happened in your day; the app builds lessons from that actual vocabulary.
 
 ---
 
 ## What This Is
 
-Cuentame closes the gap between "I studied Spanish" and "I can actually talk to people." Users log diary entries — text or voice — about their day, their conversations, things they care about. The app extracts vocabulary, maps it to CEFR levels (A1–B2), and generates structured lessons and flashcards tied to that real content.
+Cuentame closes a specific gap: "I studied Spanish" versus "I can actually hold a conversation." Users log diary entries in text or voice. The app extracts vocabulary from those entries, maps it to CEFR levels (A1–B2), and builds lessons and flashcards from that content.
 
-The core thesis: vocabulary that's tied to your actual experiences retrieves faster under speaking pressure. This isn't a feature claim — it's the scientific foundation the product is built on.
+The core thesis: vocabulary tied to real experiences retrieves faster under speaking pressure than generic list vocabulary. Not a feature claim. The cognitive science foundation the product is built on.
 
-**Target user:** Heritage Reconnectors — second and third-generation Hispanic Americans who understand Spanish at home but can't produce it. And stalled intermediates who hit the wall where Duolingo's tap-and-match stopped producing real speaking ability.
+**Target user:** Heritage Reconnectors (second and third-generation Hispanic Americans who understand Spanish at home but can't produce it) and stalled intermediates who studied, hit the plateau, and now have grammar but not the words for their actual life.
+
+**My role:** Market research, competitive landscape analysis, user segmentation (Heritage Reconnectors as primary segment), product brief, AI cost architecture decisions, privacy model design.
+**AI's role:** Research synthesis, product brief drafting under my direction. No code exists yet — this is the pre-development phase.
 
 **What this is not:**
 - A Duolingo replacement — supplemental tool that bridges structured study to real conversation
@@ -25,6 +41,28 @@ The core thesis: vocabulary that's tied to your actual experiences retrieves fas
 | **Phase** | Pre-development |
 | **Stability** | Research and product brief complete — development not started |
 | **Last updated** | April 2026 |
+
+---
+
+## Challenges & Decisions
+
+### Supplemental positioning, not Duolingo replacement
+**Problem:** Any new Spanish app invites comparison to Duolingo. Competing on breadth loses. Duolingo has 10 years and 500M users.
+**Decision:** Position as supplemental — explicitly for people who already have some grammar foundation and need to bridge to real conversation. "What you studied + what you actually say."
+**Tradeoff:** Smaller addressable market. Excludes total beginners.
+**Outcome:** Clearer product brief. Heritage Reconnectors and stalled intermediates are the real target — people with existing Spanish exposure who can't produce under pressure. That's a real, underserved segment.
+
+### Batch processing over real-time AI generation
+**Problem:** Real-time AI generation (one API call per user action) scales costs 1:1 with users. A lesson app with 10,000 daily active users would have unpredictable API bills.
+**Decision:** Batch processing. Generate and cache lesson content per vocabulary item. The same lesson for "trabajo" doesn't get regenerated for every user who logs that word.
+**Tradeoff:** Less real-time personalization at the lesson level. Batch jobs require infrastructure for scheduling and cache invalidation.
+**Outcome:** Cost scales with vocabulary diversity, not user count. That's the right model for a consumer product with variable usage patterns.
+
+### E2E encryption for diary entries as non-negotiable
+**Problem:** Diary entries are personally sensitive. A language learning app that stores unencrypted diary content about users' daily lives is a privacy liability and a trust problem.
+**Decision:** E2E encryption on diary entries from day one. Server never has access to plaintext. BYOK tier as an escape valve for cost-conscious users who want to run their own AI pipeline.
+**Tradeoff:** Higher implementation complexity. Harder to do server-side AI processing on encrypted data — requires client-side decryption before any AI call.
+**Outcome:** Non-negotiable for the Heritage Reconnector segment specifically. Family stories and personal context are exactly the content they'd diary about. That trust has to be earned architecturally, not just promised in a privacy policy.
 
 ---
 
@@ -53,9 +91,9 @@ Spaced repetition runs underneath: vocabulary resurfaces on expanding intervals 
 
 ## How This Was Built
 
-Research-first. Before any product decisions were made, a domain research and market research session was run through the BMAD analyst workflow — user segments, competitive landscape (Duolingo, LangJournal, Pimsleur), pricing model, AI cost architecture, and privacy risks. The key insight from that research: "high personalization + speaking focus" is genuinely unoccupied territory in the language learning market. LangJournal is the closest competitor but doesn't generate lessons or flashcards from diary content.
+I ran domain and market research before committing to any product decisions: user segments, competitive landscape (Duolingo, LangJournal, Pimsleur), pricing model, AI cost architecture, privacy risks. The finding that shaped everything: "high personalization + speaking focus" is genuinely unoccupied territory. LangJournal is the closest competitor and it doesn't generate lessons or flashcards from diary content. That gap is real.
 
-Architecture decisions already made: batch processing (not real-time) to control AI costs, lesson caching per vocabulary item, E2E encryption for diary entries as a non-negotiable trust requirement.
+Architecture is decided: batch processing over real-time to control AI costs, lesson caching per vocabulary item so costs don't scale 1:1 with users, E2E encryption for diary entries as non-negotiable. Development hasn't started. The foundation is solid.
 
 ---
 
